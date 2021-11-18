@@ -13,10 +13,23 @@
               <img src="https://img.pokemondb.net/sprites/ruby-sapphire/normal/torchic.png" alt="Torchic">
               <img src="https://img.pokemondb.net/sprites/ruby-sapphire/normal/mudkip.png" alt="Mudkip">
           </div>
-          <button class="btn btn-outline-light text-success bg-white" type="button">Treecko</button>
-          <button class="btn btn-outline-light text-danger bg-white" type="button">Torchic</button>
-          <button class="btn btn-outline-light text-primary bg-white" type="button" >Mudkip</button>
+          <button class="btn btn-outline-light text-success bg-white" type="button" value = "Treecko" onclick="OnDivClick(this.value);">Treecko</button>
+          <button class="btn btn-outline-light text-danger bg-white" type="button" value = "Torchic" onclick="OnDivClick(this.value);">Torchic</button>
+          <button class="btn btn-outline-light text-primary bg-white" type="button" value = "Mudkip" onclick="OnDivClick(this.value);">Mudkip</button>
+        </div>
+        <div>
+            <button class = "btn btn-outline-light text-dark bg-secondary" type="button" value = "/Home/Privacy" onclick="redirectToPrivacy(this.value)">Privacy</button>
         </div>
       </div>
       <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
+
+<script>
+    function OnDivClick(value) {
+        alert('The player has chosen ' + value);
+    }
+
+    function redirectToPrivacy(url){
+        window.location.href = url;
+    }
+</script>
