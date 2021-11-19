@@ -3,6 +3,74 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Empresa</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <p class="h2"><b>Cadastro de Empresa</b></p>
 </div>
+<div class="text-left">
+    <div class="col-12">
+        <div class="h-100 p-5 text-black bg-light rounded-3">
+            <form>
+                <div class="form-group mb-3">
+                    <label for="formGroupCompanyName" class="form-label">Nome da Empresa</label>
+                    <div class="mb-4 input-group">
+                        <span class="input-group-text">
+                            <i class="bi bi-briefcase-fill"></i>
+                        </span>
+                        <input type="text" class="form-control" id="formGroupCompanyName" placeholder="Nome Legal Da Empresa">
+                        <span class="input-group-text">
+                            <span id="info" data-toggle="tooltip" title="Nome da empresa registrado junto aos órgãos do governo">
+                                <i class="bi bi-info-circle"></i>
+                            </span>
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group mb-3">
+                    <label for="formGroupCompanyFantasyName" class="form-label">Nome Fantasia da Empresa</label>
+                    <div class="mb-4 input-group">
+                        <span class="input-group-text">
+                            <i class="bi bi-building"></i>
+                        </span>
+                        <input type="text" class="form-control" id="formGroupCompanyFantasyName" placeholder="Nome Fantasia Da Empresa">
+                        <span class="input-group-text">
+                            <span id="info" data-toggle="tooltip" title="Nome comercial ou popular da empresa">
+                                <i class="bi bi-info-circle"></i>
+                            </span>
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group mb-3">
+                    <label for="formGroupCompanyCNPJ" class="form-label">CNPJ</label>
+                    <!--- Icones ao lado do formulario de input --->
+                    <div class="mb-4 input-group">
+                        <span class="input-group-text">
+                            <i class="bi bi-person-lines-fill"></i>
+                        </span>
+                        <input type="text" class="form-control" id="formGroupCompanyCNPJ" placeholder="CNPJ Da Empresa">
+                        <!--- Toogletip --->
+                        <span class="input-group-text">
+                            <span id="info" data-toggle="tooltip" title="Cadastro Nacional da Pessoa Jurídica">
+                                <i class="bi bi-info-circle"></i>
+                            </span>
+                        </span>
+                    </div>
+                </div>
+            </form>
+            <button type="submit" class="btn btn-primary" value="/Home/Index" onclick="completeRegistration(this.value)">Submit</button>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts{
+<script>
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
+</script>
+}
+
+<script>
+    function completeRegistration(url){
+        alert("Cadastro completado com sucesso!")
+        window.location.href = url;
+    }
+</script>
