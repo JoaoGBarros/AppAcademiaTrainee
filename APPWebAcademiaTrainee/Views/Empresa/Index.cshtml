@@ -1,21 +1,28 @@
-﻿@{
-    ViewData["Title"] = "Cadastro Empresa";
+﻿@model EmpresaModel
+
+@{
+    ViewData["Title"] = "Cadastro da Empresa";
 }
 
 <div class="text-center">
-    <p class="h2"><b>Cadastro de Empresa</b></p>
+    <p class="h1"><b>Cadastro da Empresa</b></p>
 </div>
+
 <div class="text-left">
+    <!--- Jumbotron --->
     <div class="col-12">
         <div class="h-100 p-5 text-black bg-light rounded-3">
-            <form>
+            <!--- Formulario de Cadastro --->
+            <form id="company_registration" asp-action="Create">
                 <div class="form-group mb-3">
                     <label for="formGroupCompanyName" class="form-label">Nome da Empresa</label>
+                    <!--- Icones ao lado do formulario de input --->
                     <div class="mb-4 input-group">
                         <span class="input-group-text">
                             <i class="bi bi-briefcase-fill"></i>
                         </span>
-                        <input type="text" class="form-control" id="formGroupCompanyName" placeholder="Nome Legal Da Empresa">
+                        <input type="text" class="form-control" id="CompanyName" placeholder="Nome Legal Da Empresa" asp-for="CompanyName" required>
+                        <!--- Toogletip --->
                         <span class="input-group-text">
                             <span id="info" data-toggle="tooltip" title="Nome da empresa registrado junto aos órgãos do governo">
                                 <i class="bi bi-info-circle"></i>
@@ -24,12 +31,14 @@
                     </div>
                 </div>
                 <div class="form-group mb-3">
-                    <label for="formGroupCompanyFantasyName" class="form-label">Nome Fantasia da Empresa</label>
+                    <label for="formGroupCompanyFantasyName" class="form-label" >Nome Fantasia da Empresa</label>
+                    <!--- Icones ao lado do formulario de input --->
                     <div class="mb-4 input-group">
                         <span class="input-group-text">
                             <i class="bi bi-building"></i>
                         </span>
-                        <input type="text" class="form-control" id="formGroupCompanyFantasyName" placeholder="Nome Fantasia Da Empresa">
+                        <input type="text" class="form-control" id="CompanyFantasyName" placeholder="Nome Fantasia Da Empresa" asp-for="CompanyFantasyName" required>
+                        <!--- Toogletip --->
                         <span class="input-group-text">
                             <span id="info" data-toggle="tooltip" title="Nome comercial ou popular da empresa">
                                 <i class="bi bi-info-circle"></i>
@@ -44,7 +53,7 @@
                         <span class="input-group-text">
                             <i class="bi bi-person-lines-fill"></i>
                         </span>
-                        <input type="text" class="form-control" id="formGroupCompanyCNPJ" placeholder="CNPJ Da Empresa">
+                        <input type="text" class="form-control" id="CompanyCNPJ" placeholder="XX.XXX.XXX/XXXX-XX" asp-for="CompanyCNPJ" required>
                         <!--- Toogletip --->
                         <span class="input-group-text">
                             <span id="info" data-toggle="tooltip" title="Cadastro Nacional da Pessoa Jurídica">
@@ -53,12 +62,27 @@
                         </span>
                     </div>
                 </div>
+                <!--- Botao de Submit do formulario --->
+                <button type="submit" value= "Create" class="btn btn-primary">Submit</button>
             </form>
-            <button type="submit" class="btn btn-primary" value="/Home/Index" onclick="completeRegistration(this.value)">Submit</button>
         </div>
     </div>
 </div>
 
+
+
+ <!--- 
+    Scripts dentro dessa section
+    dependem dos scripts importados no _Layout.
+
+     Formato: *section "Nome da Section"{
+        <script>
+            funcoes dependentes
+        </script>
+     }
+
+     Nome da Section encontrado na funcao RenderSectionAsync()
+ --->
 
 @section Scripts{
 <script>
@@ -67,10 +91,3 @@
     })
 </script>
 }
-
-<script>
-    function completeRegistration(url){
-        alert("Cadastro completado com sucesso!")
-        window.location.href = url;
-    }
-</script>

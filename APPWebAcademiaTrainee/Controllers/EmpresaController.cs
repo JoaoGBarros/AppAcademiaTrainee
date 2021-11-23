@@ -2,11 +2,13 @@
 using APPWebAcademiaTrainee.Models;
 using System.Diagnostics;
 
+
 namespace APPWebAcademiaTrainee.Controllers
 {
     public class EmpresaController : Controller
     {
         private readonly ILogger<EmpresaController> _logger;
+
 
         public EmpresaController(ILogger<EmpresaController> logger)
         {
@@ -21,6 +23,14 @@ namespace APPWebAcademiaTrainee.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create([Bind("CompanyCode, CompanyName, CompanyFantasyName, CompanyCNPJ")] EmpresaModel empresaModel)
+        {
+            Console.Write(empresaModel);
+            return View("~/Views/Home/Index.cshtml");
         }
     }
 }
