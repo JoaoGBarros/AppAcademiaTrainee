@@ -81,7 +81,7 @@ namespace APPWebAcademiaTrainee.Controllers
             if (pessoaModel.Date < limit)
             {
                 error = true;
-                ModelState.AddModelError("", "Data de Nascimento fora do limite!");
+                ModelState.AddModelError("", "Data de Nascimento fora da data limite! (01/01/1990)");
             }
 
             if (pessoaModel.ChildrenAmount < 0)
@@ -168,7 +168,7 @@ namespace APPWebAcademiaTrainee.Controllers
             if (pessoaModel.Date < limit)
             {
                 error = true;
-                ModelState.AddModelError("", "Data de Nascimento fora do limite!");
+                ModelState.AddModelError("", "Data de Nascimento fora da data limite! (01/01/1990)");
             }
 
             if (pessoaModel.ChildrenAmount < 0)

@@ -8,6 +8,7 @@ namespace APPWebAcademiaTrainee.Models
         [Key]
         public int PersonCode { get; set; }
 
+        [Display(Name = "Nome")]
         public string Name { get; set; }
 
         public string Email { get; set; }
@@ -17,7 +18,8 @@ namespace APPWebAcademiaTrainee.Models
 
         [Display(Name = "Quantidade de Filhos")]
         public int ChildrenAmount { get; set; }
-        
+
+        [Display(Name = "Salario")]
         public decimal Salary   { get; set; }
 
         [Display(Name = "Situacao")]
