@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using APPWebAcademiaTrainee.Data;
 using APPWebAcademiaTrainee.Models;
+using APPWebAcademiaTrainee.Business;
 
 namespace APPWebAcademiaTrainee.Controllers
 {
@@ -58,9 +59,6 @@ namespace APPWebAcademiaTrainee.Controllers
         public async Task<IActionResult> Create([Bind("PersonCode,Name,Email,Date,ChildrenAmount,Salary")] PessoaModel pessoaModel)
         {
 
-            // Cria uma data limite 01/01/1990 00:00:00
-            DateTime limit = new DateTime(1990, 1, 1);
-
             // variavel booleana para verificar a data
             bool error = false;
 
@@ -68,38 +66,32 @@ namespace APPWebAcademiaTrainee.Controllers
             pessoaModel.Status = true;
 
             //Pega no banco de dados pessoa com o mesmo email colocado no formulario
-            var pessoaModel2 = _context.PessoaModel.Where(m => m.Email == pessoaModel.Email);
+            var pessoaModel_email = _context.PessoaModel.Where(m => m.Email == pessoaModel.Email);
 
-            // Se voltar algum objeto, eh mostrada a mensagem de erro
-            if (pessoaModel2.Count() > 0)
+        
+            if (!PessoaBusiness.ChecaEmailCadastrado(pessoaModel_email))
             {
                 error = true;
-                ModelState.AddModelError("", "Email ja cadastrado!");
+                ModelState.AddModelError("", "Email já cadastrado!");
             }
 
 
-            if (pessoaModel.Date < limit)
+            if (!PessoaBusiness.ValidaDataDeNascimento(pessoaModel.Date))
             {
                 error = true;
                 ModelState.AddModelError("", "Data de Nascimento fora da data limite! (01/01/1990)");
             }
 
-            if (pessoaModel.ChildrenAmount < 0)
+            if (!PessoaBusiness.ValidaQuantidadeDeFilhos(pessoaModel.ChildrenAmount))
             {
                 error = true;
-                ModelState.AddModelError("", "A quantidade minima de filhos eh 0");
+                ModelState.AddModelError("", "A quantidade mínima de filhos é 0");
             }
 
-            if (pessoaModel.Salary < 1200)
+            if (!PessoaBusiness.ValidaSalario(pessoaModel.Salary))
             {
                 error = true;
-                ModelState.AddModelError("", "Salario nao pode ser inferior a 1200");
-            }
-
-            if (pessoaModel.Salary > 13000)
-            {
-                error = true;
-                ModelState.AddModelError("", "Salario nao pode ser superior a 13000");
+                ModelState.AddModelError("", "Salário não pode ser inferior à 1.200 e superior à 13.000");
             }
 
             if (error)
@@ -140,9 +132,9 @@ namespace APPWebAcademiaTrainee.Controllers
 
             bool error = false;
 
-            DateTime limit = new DateTime(1990, 1, 1);
+           
 
-            var pessoaModel2 = _context.PessoaModel.Where(m => m.Email == pessoaModel.Email && m.PersonCode != pessoaModel.PersonCode);
+            var pessoaModel_email = _context.PessoaModel.Where(m => m.Email == pessoaModel.Email && m.PersonCode != pessoaModel.PersonCode);
 
             if (id != pessoaModel.PersonCode)
             {
@@ -156,7 +148,7 @@ namespace APPWebAcademiaTrainee.Controllers
                 ModelState.AddModelError("", "Usuario inativo! Nao foi possivel editar!");
             }
 
-            if (pessoaModel2.Count() > 0)
+            if (!PessoaBusiness.ChecaEmailCadastrado(pessoaModel_email))
             {
 
                 error = true;
@@ -165,25 +157,25 @@ namespace APPWebAcademiaTrainee.Controllers
 
             }
 
-            if (pessoaModel.Date < limit)
+            if (!PessoaBusiness.ValidaDataDeNascimento(pessoaModel.Date))
             {
                 error = true;
                 ModelState.AddModelError("", "Data de Nascimento fora da data limite! (01/01/1990)");
             }
 
-            if (pessoaModel.ChildrenAmount < 0)
+            if (!PessoaBusiness.ValidaQuantidadeDeFilhos(pessoaModel.ChildrenAmount))
             {
                 error = true;
                 ModelState.AddModelError("", "A quantidade minima de filhos eh 0");
             }
 
-            if (pessoaModel.Salary < 1200)
+            if (!PessoaBusiness.ValidaSalario(pessoaModel.Salary))
             {
                 error = true;
                 ModelState.AddModelError("", "Salario nao pode ser inferior a 1200");
             }
 
-            if (pessoaModel.Salary > 13000)
+            if (!PessoaBusiness.ValidaSalario(pessoaModel.Salary))
             {
                 error = true;
                 ModelState.AddModelError("", "Salario nao pode ser superior a 13000");
