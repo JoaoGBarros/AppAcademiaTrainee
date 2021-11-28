@@ -68,11 +68,11 @@
                         <button id="Options" type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                             Opções
                         </button>
-                        <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                            <li><a asp-action="Edit" asp-route-id="@item.PersonCode" class="text-warning" style="text-decoration: none"><b>Editar</b></a></li>
-                            <li><a asp-action="Details" asp-route-id="@item.PersonCode" class="text-success" style="text-decoration: none"><b>Deletalhes</b></a></li>
-                            <li><a asp-action="Delete" asp-route-id="@item.PersonCode" class="text-danger" style="text-decoration: none"><b>Deletar</b></a></li>
-                            <li><a asp-action="AlterarStatus" asp-route-id="@item.PersonCode" class="text-primary" style="text-decoration: none"><b>Alterar Situação</a></li>
+                        <ul class="dropdown-menu">
+                            <li id="dropdow_button"><a asp-action="Edit" asp-route-id="@item.PersonCode" class="text-warning " style="text-decoration: none"><b>Editar</b></a></li>
+                            <li id="dropdow_button"><a asp-action="Details" asp-route-id="@item.PersonCode" class="text-success" style="text-decoration: none"><b>Deletalhes</b></a></li>
+                            <li id="dropdow_button"><a asp-action="Delete" asp-route-id="@item.PersonCode" class="text-danger" style="text-decoration: none"><b>Deletar</b></a></li>
+                            <li id="dropdow_button"><a asp-action="AlterarStatus" asp-route-id="@item.PersonCode" class="text-primary" style="text-decoration: none"><b>Alterar Situação</b></a></li>
                         </ul>
                     </div>
                 </td>
@@ -80,4 +80,5 @@
         }
     </tbody>
 </table>
+
 
