@@ -4,11 +4,10 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
-
-<p>
+<div div style="display: flex; justify-content: space-between;">
+    <h1>Index</h1>
     <button type="button" class="btn btn-primary"><a asp-action="Create" style="text-decoration: none" class="text-white">Create New</a></button>
-</p>
+</div>
 @Html.ValidationSummary()
 <table class="table table-striped" style="width:100%">
     <thead>
@@ -73,7 +72,7 @@
                             <li><a asp-action="Edit" asp-route-id="@item.PersonCode" class="text-warning" style="text-decoration: none"><b>Editar</b></a></li>
                             <li><a asp-action="Details" asp-route-id="@item.PersonCode" class="text-success" style="text-decoration: none"><b>Deletalhes</b></a></li>
                             <li><a asp-action="Delete" asp-route-id="@item.PersonCode" class="text-danger" style="text-decoration: none"><b>Deletar</b></a></li>
-                            <li><a asp-action="AlterarStatus" asp-route-id="@item.PersonCode" class="text-primary" style="text-decoration: none"><b>Alterar Situação</b></a></li>
+                            <li><a asp-action="AlterarStatus" asp-route-id="@item.PersonCode" class="text-primary" style="text-decoration: none"><b>Alterar Situação</a></li>
                         </ul>
                     </div>
                 </td>
