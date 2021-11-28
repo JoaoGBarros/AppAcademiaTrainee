@@ -22,7 +22,7 @@ namespace APPWebAcademiaTrainee.Models
         [Display(Name = "Salario")]
         public decimal Salary   { get; set; }
 
-        [Display(Name = "Situacao")]
+        [Display(Name = "Situação")]
         public bool Status { get; set; } 
     }
 }

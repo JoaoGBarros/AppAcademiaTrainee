@@ -7,10 +7,10 @@
 <h1>Index</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <button type="button" class="btn btn-primary"><a asp-action="Create" style="text-decoration: none" class="text-white">Create New</a></button>
 </p>
 @Html.ValidationSummary()
-<table class="table">
+<table class="table table-striped" style="width:100%">
     <thead>
         <tr>
             <th>
@@ -38,22 +38,23 @@
         @foreach (var item in Model)
         {
             <tr>
-                <td>
+                <td class="text-center">
                     @Html.DisplayFor(modelItem => item.Name)
                 </td>
-                <td>
+                <td class="text-center">
                     @Html.DisplayFor(modelItem => item.Email)
                 </td>
-                <td>
+                <td class="text-center">
                     @Html.DisplayFor(modelItem => item.Date)
                 </td>
-                <td>
+
+                <td class="text-center">
                     @Html.DisplayFor(modelItem => item.ChildrenAmount)
                 </td>
-                <td>
+                <td class="text-center">
                     @Html.DisplayFor(modelItem => item.Salary)
                 </td>
-                <td>
+                <td class="text-center">
                     @if (item.Status)
                     {
                         <span>Ativo</span>
@@ -64,10 +65,17 @@
                     }
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.PersonCode">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.PersonCode">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.PersonCode">Delete</a> |
-                    <a asp-action="AlterarStatus" asp-route-id="@item.PersonCode">Alterar Situação</a>
+                    <div class="btn-group" role="group">
+                        <button id="Options" type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                            Opções
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                            <li><a asp-action="Edit" asp-route-id="@item.PersonCode" class="text-warning" style="text-decoration: none"><b>Editar</b></a></li>
+                            <li><a asp-action="Details" asp-route-id="@item.PersonCode" class="text-success" style="text-decoration: none"><b>Deletalhes</b></a></li>
+                            <li><a asp-action="Delete" asp-route-id="@item.PersonCode" class="text-danger" style="text-decoration: none"><b>Deletar</b></a></li>
+                            <li><a asp-action="AlterarStatus" asp-route-id="@item.PersonCode" class="text-primary" style="text-decoration: none"><b>Alterar Situação</b></a></li>
+                        </ul>
+                    </div>
                 </td>
             </tr>
         }

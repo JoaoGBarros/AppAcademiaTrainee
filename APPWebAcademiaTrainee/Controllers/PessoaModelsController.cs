@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using APPWebAcademiaTrainee.Data;
 using APPWebAcademiaTrainee.Models;
-using APPWebAcademiaTrainee.Business;
+using AcademiaTrainee.Aplicacao;
 
 namespace APPWebAcademiaTrainee.Controllers
 {
@@ -62,14 +62,11 @@ namespace APPWebAcademiaTrainee.Controllers
             // variavel booleana para verificar a data
             bool error = false;
 
-            // Salva a pessoa como ativo
-            pessoaModel.Status = true;
-
             //Pega no banco de dados pessoa com o mesmo email colocado no formulario
             var pessoaModel_email = _context.PessoaModel.Where(m => m.Email == pessoaModel.Email);
 
         
-            if (!PessoaBusiness.ChecaEmailCadastrado(pessoaModel_email))
+            if (!PessoaBusiness.ChecaEmailCadastrado(pessoaModel_email.Count()))
             {
                 error = true;
                 ModelState.AddModelError("", "Email já cadastrado!");
@@ -98,6 +95,9 @@ namespace APPWebAcademiaTrainee.Controllers
             {
                 return View(pessoaModel);
             }
+
+            // Salva a pessoa como ativo
+            pessoaModel.Status = true;
 
             _context.Add(pessoaModel);
             await _context.SaveChangesAsync();
@@ -132,9 +132,12 @@ namespace APPWebAcademiaTrainee.Controllers
 
             bool error = false;
 
-           
 
+            // Recupera os dados do usuario no banco de dados para comparacoes futuras
+            var pessoaModelBD = GetPessoaBD(id);
             var pessoaModel_email = _context.PessoaModel.Where(m => m.Email == pessoaModel.Email && m.PersonCode != pessoaModel.PersonCode);
+
+
 
             if (id != pessoaModel.PersonCode)
             {
@@ -142,13 +145,13 @@ namespace APPWebAcademiaTrainee.Controllers
             }
 
 
-            if (!pessoaModel.Status)
+            if (!PessoaBusiness.ValidaSituacao(pessoaModel.Status, pessoaModelBD.Status))
             {
                 error = true;
-                ModelState.AddModelError("", "Usuario inativo! Nao foi possivel editar!");
+                ModelState.AddModelError("", "Usuário inativo! Altere a situação do usuário para edita-lo ");
             }
 
-            if (!PessoaBusiness.ChecaEmailCadastrado(pessoaModel_email))
+            if (!PessoaBusiness.ChecaEmailCadastrado(pessoaModel_email.Count()))
             {
 
                 error = true;
@@ -188,6 +191,9 @@ namespace APPWebAcademiaTrainee.Controllers
                 {
                     _context.Update(pessoaModel);
                     await _context.SaveChangesAsync();
+
+                    // Caso nao tenha nenhum erro a ser mostrado, a pagina retorna ao index
+                    return RedirectToAction(nameof(Index));
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -202,10 +208,19 @@ namespace APPWebAcademiaTrainee.Controllers
                 }
             }
 
+            // Caso tenha algum erro a ser mostrado, a pagina recarrega a view com as mensagens de erro
             return View(pessoaModel);
 
 
 
+        }
+
+
+        // Funcao para retornar os dados do usuario no banco de dados
+        public PessoaModel GetPessoaBD(int id)
+        {
+            PessoaModel pessoaModel = _context.PessoaModel.AsNoTracking().Where(x => x.PersonCode == id).Single();
+            return pessoaModel;
         }
 
         // GET: PessoaModels/Delete/5
@@ -235,7 +250,7 @@ namespace APPWebAcademiaTrainee.Controllers
             var pessoaModel = await _context.PessoaModel.FindAsync(id);
 
             // Se a pessoa estiver ativa
-            if (pessoaModel.Status == true)
+            if (!PessoaBusiness.ValidaExclusao(pessoaModel.Status))
             {
                 ModelState.AddModelError("", "Usuario ativo! Nao foi possivel deletar!");
                 return View(pessoaModel);
